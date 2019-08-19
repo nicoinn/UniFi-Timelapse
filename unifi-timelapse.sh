@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #SNAP_BASE="/mnt/hgfs/Disk2/UniFi-Snaps"
-SNAP_BASE="/nas/data/Development/UniFi/TimeLapse/UniFi-Timelapse/UniFi-Snaps"
+SNAP_BASE="/data/UniFi-Timelapse/UniFi-Snaps"
 OUT_DIR="$SNAP_BASE/timelapse"
-DATE_EXT=`date '+%F %H:%M'`
+DATE_EXT=`date '+%F_%H_%M'`
 
 declare -A CAMS
 
@@ -41,7 +41,7 @@ getSnap() {
     # check error here
   fi
   
-  snapFile="$snapDir/$1 - $DATE_EXT.jpg"
+  snapFile="$snapDir/$1_$DATE_EXT.jpg"
 
   log savingSnap "$2" to "$snapFile" 
 
