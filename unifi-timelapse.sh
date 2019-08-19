@@ -7,10 +7,8 @@ DATE_EXT=`date '+%F %H:%M'`
 
 declare -A CAMS
 
-CAMS["Front Door"]="http://192.1.1.1/snap.jpeg"
-CAMS["Back Door"]="http://192.1.1.2/snap.jpeg"
-CAMS["Driveway"]="http://192.1.1.3/snap.jpeg"
-CAMS["Back Garden"]="http://192.1.1.4/snap.jpeg"
+CAMS["Front Door"]="rtsp://127.0.0.1:7447/5d571edbdd2eqb6839_0"  #Find this in the unifi video controller interface
+CAMS["Back Garden"]="rtsp://address_to_unifi_video_controller:7447/some_long_hash-like_thing_0"
 
 # If we are in a terminal, be verbose.
 if [[ -z $VERBOSE && -t 1 ]]; then
@@ -47,7 +45,8 @@ getSnap() {
 
   log savingSnap "$2" to "$snapFile" 
 
-  wget --quiet -O "$snapFile" "$2"
+  ffmpeg -ss 00:00:00 -i $2 -vframes 1 -q:v 1 $snapFile
+  #wget --quiet -O "$snapFile" "$2"
 }
 
 createMovie()
